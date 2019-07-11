@@ -21,6 +21,12 @@ SELECT * FROM reviews;
 SELECT id, array_agg(comments) AS results
     FROM reviews
     GROUP BY id;
+	
+SELECT * from listings
 
-SELECT * FROM listings
-LEFT JOIN reviews on listings.id = reviews.id;
+SELECT listings.id, listings.name, listings.neighbourhood, listings.price, count(DISTINCT reviews.comments),string_agg(reviews.comments, '\n \n \n')
+FROM listings
+JOIN reviews ON (listings.id = reviews.id)
+GROUP BY listings.id
+
+
